@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173f8f">
+  <meta name="description" content="九九から19×19までをテンポよく反復できる暗算トレーニング">
+  <title>19×19 マスター</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <button id="homeButton" class="brand" type="button" aria-label="ホームへ戻る">
+        <span class="brand-mark">×</span><span>19×19 マスター</span>
+      </button>
+      <button id="tableButton" class="text-button" type="button">かけ算表</button>
+    </header>
+
+    <section id="homeView" class="view active" aria-labelledby="homeTitle">
+      <div class="intro">
+        <p class="eyebrow">暗算トレーニング</p>
+        <h1 id="homeTitle">19×19まで、<br><span>迷わず答える。</span></h1>
+        <p>出題範囲と問題数を選んで、すぐに練習を始められます。</p>
+      </div>
+
+      <div class="setup-card">
+        <fieldset>
+          <legend>出題範囲</legend>
+          <div class="segmented" id="rangeOptions">
+            <button type="button" data-range="basic">九九（2〜9）</button>
+            <button type="button" data-range="extended" class="selected">11〜19</button>
+            <button type="button" data-range="all">2〜19</button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>問題数</legend>
+          <div class="segmented compact" id="countOptions">
+            <button type="button" data-count="10">10問</button>
+            <button type="button" data-count="20" class="selected">20問</button>
+            <button type="button" data-count="50">50問</button>
+          </div>
+        </fieldset>
+        <button id="startButton" class="primary" type="button">練習を始める <span>→</span></button>
+      </div>
+
+      <div class="record-card" aria-label="この端末での記録">
+        <div><span>これまで</span><strong id="totalSolved">0</strong><small>問</small></div>
+        <div><span>正答率</span><strong id="totalAccuracy">—</strong><small id="accuracyUnit"></small></div>
+        <div><span>最高連続正解</span><strong id="bestStreak">0</strong><small>問</small></div>
+      </div>
+    </section>
+
+    <section id="quizView" class="view" aria-labelledby="quizTitle">
+      <div class="quiz-head">
+        <button id="quitButton" class="quit" type="button">終了</button>
+        <div class="progress-copy"><strong id="progressText">1 / 20</strong><span id="streakText">0問連続正解</span></div>
+      </div>
+      <div class="progress-track"><span id="progressBar"></span></div>
+      <div class="quiz-card">
+        <p id="quizTitle" class="question-label">答えを入力</p>
+        <div class="equation"><span id="factorA">12</span><span>×</span><span id="factorB">13</span><span>=</span><span id="answerDisplay" class="answer blank">?</span></div>
+        <p id="feedback" class="feedback" aria-live="polite">数字キーでも入力できます</p>
+        <div class="keypad" aria-label="数字入力">
+          <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button>
+          <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button>
+          <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button>
+          <button type="button" data-key="clear" aria-label="入力を消す">消す</button><button type="button" data-key="0">0</button><button type="button" data-key="submit" class="enter">決定</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultView" class="view" aria-labelledby="resultTitle">
+      <div class="result-card">
+        <p class="eyebrow">RESULT</p>
+        <h2 id="resultTitle">練習完了！</h2>
+        <div class="score-ring"><strong id="scoreValue">18</strong><span id="scoreTotal">/ 20問</span></div>
+        <div class="result-stats"><div><span>正答率</span><strong id="resultAccuracy">90%</strong></div><div><span>かかった時間</span><strong id="resultTime">1:24</strong></div></div>
+        <div id="mistakeBox" class="mistakes"><h3>まちがえた問題</h3><div id="mistakeList"></div></div>
+        <button id="retryButton" class="primary" type="button">同じ設定でもう一度</button>
+        <button id="backButton" class="secondary" type="button">ホームへ戻る</button>
+      </div>
+    </section>
+
+    <section id="tableView" class="view" aria-labelledby="tableTitle">
+      <div class="table-heading"><div><p class="eyebrow">QUICK REFERENCE</p><h2 id="tableTitle">かけ算表</h2></div><button id="closeTableButton" class="secondary small" type="button">戻る</button></div>
+      <p class="table-note">縦と横が交わるところが答えです。横にスクロールできます。</p>
+      <div class="table-wrap"><table id="multiplicationTable"></table></div>
+    </section>
+  </main>
+
+  <dialog id="quitDialog">
+    <h2>練習を終了しますか？</h2>
+    <p>今回の途中結果は記録されません。</p>
+    <div><button id="cancelQuit" class="secondary" type="button">練習を続ける</button><button id="confirmQuit" class="danger" type="button">終了する</button></div>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
